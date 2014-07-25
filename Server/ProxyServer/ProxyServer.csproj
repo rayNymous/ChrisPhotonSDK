@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6CD752D9-9A37-44B3-8FE8-79C7306BA6C9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProxyServer</RootNamespace>
+    <AssemblyName>ProxyServer</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\Photon\deploy\MayhemAndHell\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="ExitGames.Logging.Log4Net">
+      <HintPath>..\..\..\..\Photon\lib\ExitGames.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ExitGamesLibs">
+      <HintPath>..\..\..\..\Photon\lib\ExitGamesLibs.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\Photon\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon.SocketServer">
+      <HintPath>..\..\..\..\Photon\lib\Photon.SocketServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PhotonHostRuntimeInterfaces">
+      <HintPath>..\..\..\..\Photon\lib\PhotonHostRuntimeInterfaces.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Handlers\CharacterListResponseHandler.cs" />
+    <Compile Include="Handlers\ClientChatRequestHandler.cs" />
+    <Compile Include="Handlers\ClientLoginRequestHandler.cs" />
+    <Compile Include="Handlers\ClientGameRequestHandler.cs" />
+    <Compile Include="Handlers\EventForwardHandler.cs" />
+    <Compile Include="Handlers\LoginResponseHandler.cs" />
+    <Compile Include="Handlers\RequestForwardHandler.cs" />
+    <Compile Include="Handlers\ResponseForwardHandler.cs" />
+    <Compile Include="Handlers\SelectCharacterResponseHandler.cs" />
+    <Compile Include="Handlers\ServerRegistrationHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyConnectionCollection.cs" />
+    <Compile Include="ProxyServer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MMO.Framework\MMO.Framework\MMO.Framework.csproj">
+      <Project>{9f904cc5-850a-4e12-b7bf-7226b032e19c}</Project>
+      <Name>MMO.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MMO.Framework\MMO.Photon\MMO.Photon.csproj">
+      <Project>{e28c77f4-23fc-439c-80b8-5ac67f7c5359}</Project>
+      <Name>MMO.Photon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameServer\GameServer.csproj">
+      <Project>{d109ff3f-57c6-4ee6-aae1-c75d2248dd1a}</Project>
+      <Name>GameServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoginServer\LoginServer.csproj">
+      <Project>{69983dde-1e5a-4dfd-bcc8-7e94cccc19b5}</Project>
+      <Name>LoginServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MayhemCommon\MayhemCommon.csproj">
+      <Project>{E52FEE76-AA53-462E-82F0-2B37AE4220B2}</Project>
+      <Name>MayhemCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubServerCommon\SubServerCommon.csproj">
+      <Project>{63f27ffb-23e4-44ae-9bc2-e68e42d8a804}</Project>
+      <Name>SubServerCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Codes\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

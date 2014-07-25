@@ -1,0 +1,10 @@
+D:\Programming\C#\MayhemServer\MayhemCommon\bin\Debug\MayhemCommon.dll
+D:\Programming\C#\MayhemServer\MayhemCommon\bin\Debug\MayhemCommon.pdb
+D:\Photon\deploy\MayhemAndHell\bin\MayhemCommon.dll
+D:\Photon\deploy\MayhemAndHell\bin\MayhemCommon.pdb
+D:\Programming\C#\MayhemServer\MayhemCommon\obj\Debug\MayhemCommon.dll
+D:\Programming\C#\MayhemServer\MayhemCommon\obj\Debug\MayhemCommon.pdb
+D:\Programming\C#\MayhemServer\MayhemCommon\obj\Debug\MayhemCommon.csprojResolveAssemblyReference.cache
+D:\MayhemAndHell\Server\MayhemCommon\obj\Debug\MayhemCommon.dll
+D:\MayhemAndHell\Server\MayhemCommon\obj\Debug\MayhemCommon.pdb
+D:\MayhemAndHell\Server\MayhemCommon\obj\Debug\MayhemCommon.csprojResolveAssemblyReference.cache

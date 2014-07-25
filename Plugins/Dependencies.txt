@@ -1,0 +1,6 @@
+The Recast Unity project uses Json.Net for .Net 2.0 to handle json and bson serialization. It's readme and license is included in the directory.
+
+It also has the prebuild .dll for Recast written in C#.
+
+The source for Recast is included in the zip as it is intended to be used as a utility for a server and needs the same .dll to ensure compatibility between the exported and imported nav mesh data files.
+

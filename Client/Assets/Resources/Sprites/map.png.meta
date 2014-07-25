@@ -1,0 +1,130 @@
+fileFormatVersion: 2
+guid: f0b4d6e78fb153b4bbd993517577cd3e
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
+  spriteSheet:
+    sprites:
+    - name: map_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 367
+        width: 712
+        height: 657
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: map_1
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 857
+        width: 219
+        height: 165
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: map_2
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 728
+        width: 177
+        height: 122
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: map_4
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 648
+        width: 89
+        height: 77
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: map_5
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 640
+        width: 58
+        height: 83
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: map_6
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 252
+        width: 277
+        height: 108
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: map_7
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 120
+        width: 407
+        height: 125
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: map_7
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 472
+        width: 226
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: map_8
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 3
+        width: 282
+        height: 375
+      alignment: 0
+      pivot: {x: 0, y: 0}
+  spritePackingTag: 
+  userData: 

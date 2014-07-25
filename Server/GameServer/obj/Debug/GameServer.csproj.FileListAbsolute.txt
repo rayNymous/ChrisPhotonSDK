@@ -1,0 +1,8 @@
+D:\Photon\deploy\MayhemAndHell\bin\GameServer.dll
+D:\Photon\deploy\MayhemAndHell\bin\GameServer.pdb
+D:\Programming\C#\MayhemServer\GameServer\obj\Debug\GameServer.csprojResolveAssemblyReference.cache
+D:\Programming\C#\MayhemServer\GameServer\obj\Debug\GameServer.dll
+D:\Programming\C#\MayhemServer\GameServer\obj\Debug\GameServer.pdb
+D:\MayhemAndHell\Server\GameServer\obj\Debug\GameServer.csprojResolveAssemblyReference.cache
+D:\MayhemAndHell\Server\GameServer\obj\Debug\GameServer.dll
+D:\MayhemAndHell\Server\GameServer\obj\Debug\GameServer.pdb

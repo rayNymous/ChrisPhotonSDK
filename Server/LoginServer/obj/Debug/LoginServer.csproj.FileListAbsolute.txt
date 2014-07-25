@@ -1,0 +1,8 @@
+D:\Photon\deploy\MayhemAndHell\bin\LoginServer.dll
+D:\Photon\deploy\MayhemAndHell\bin\LoginServer.pdb
+D:\Programming\C#\MayhemServer\LoginServer\obj\Debug\LoginServer.csprojResolveAssemblyReference.cache
+D:\Programming\C#\MayhemServer\LoginServer\obj\Debug\LoginServer.dll
+D:\Programming\C#\MayhemServer\LoginServer\obj\Debug\LoginServer.pdb
+D:\MayhemAndHell\Server\LoginServer\obj\Debug\LoginServer.csprojResolveAssemblyReference.cache
+D:\MayhemAndHell\Server\LoginServer\obj\Debug\LoginServer.dll
+D:\MayhemAndHell\Server\LoginServer\obj\Debug\LoginServer.pdb

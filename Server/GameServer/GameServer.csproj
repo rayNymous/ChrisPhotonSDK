@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D109FF3F-57C6-4EE6-AAE1-C75D2248DD1A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GameServer</RootNamespace>
+    <AssemblyName>GameServer</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\Photon\deploy\MayhemAndHell\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>2</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="ExitGames.Logging.Log4Net">
+      <HintPath>..\..\..\..\Photon\lib\ExitGames.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ExitGamesLibs">
+      <HintPath>..\..\..\..\Photon\lib\ExitGamesLibs.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=1.4.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\Photon\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\MySQL\Connector NET 6.7.4\Assemblies\v4.5\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon.SocketServer">
+      <HintPath>..\..\..\..\Photon\lib\Photon.SocketServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PhotonHostRuntimeInterfaces">
+      <HintPath>..\..\..\..\Photon\lib\PhotonHostRuntimeInterfaces.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\packages\Quartz.2.2.2\lib\net40\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="RecastNavCSharp">
+      <HintPath>..\..\Plugins\RecastNavCSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ai\AiSelector.cs" />
+    <Compile Include="Ai\Implementations\AIntelligence.cs" />
+    <Compile Include="Ai\Behaviour.cs" />
+    <Compile Include="Ai\BhStatus.cs" />
+    <Compile Include="Ai\Composite.cs" />
+    <Compile Include="Ai\Condition.cs" />
+    <Compile Include="Ai\Decorator.cs" />
+    <Compile Include="Ai\IBehaviour.cs" />
+    <Compile Include="Ai\Implementations\GeneralAi.cs" />
+    <Compile Include="Ai\Implementations\WonderSequence.cs" />
+    <Compile Include="Ai\PrioritySelector.cs" />
+    <Compile Include="Ai\RepeatableTask.cs" />
+    <Compile Include="Ai\RepeatableTasks\AutoAttackTask.cs" />
+    <Compile Include="Ai\RepeatableTasks\FollowTask.cs" />
+    <Compile Include="Ai\Selector.cs" />
+    <Compile Include="Ai\Sequence.cs" />
+    <Compile Include="Calculators\Calculator.cs" />
+    <Compile Include="Calculators\Functions\FunctionAdd.cs" />
+    <Compile Include="Calculators\Functions\FunctionDivide.cs" />
+    <Compile Include="Calculators\Functions\FunctionMultiply.cs" />
+    <Compile Include="Calculators\Functions\FunctionSubtract.cs" />
+    <Compile Include="Calculators\GEnvironment.cs" />
+    <Compile Include="Calculators\Lambdas\LambdaConstant.cs" />
+    <Compile Include="Calculators\Lambdas\LambdaStat.cs" />
+    <Compile Include="Data\ItemDrop.cs" />
+    <Compile Include="Effects\AreaOfEffect.cs" />
+    <Compile Include="Effects\AreaOfEffectData.cs" />
+    <Compile Include="Effects\AreaOfEffectManager.cs" />
+    <Compile Include="Effects\AreaOfEffectType.cs" />
+    <Compile Include="Etc\NavMeshSerializer.cs" />
+    <Compile Include="Etc\PathFinder.cs" />
+    <Compile Include="Factories\ContainerFactory.cs" />
+    <Compile Include="Factories\DialogFactory.cs" />
+    <Compile Include="Factories\IdFactory.cs" />
+    <Compile Include="Factories\ItemFactory.cs" />
+    <Compile Include="Data\MovementData.cs" />
+    <Compile Include="Data\DataManager.cs" />
+    <Compile Include="Data\Templates\NpcTemplate.cs" />
+    <Compile Include="Data\Templates\ItemTemplate.cs" />
+    <Compile Include="Factories\NpcFactory.cs" />
+    <Compile Include="Factories\QuestFactory.cs" />
+    <Compile Include="Factories\ZoneFactory.cs" />
+    <Compile Include="Data\Templates\ZoneTemplate.cs" />
+    <Compile Include="GameActions.cs" />
+    <Compile Include="GameServer.cs" />
+    <Compile Include="Handlers\ActionRequestHandler.cs" />
+    <Compile Include="Handlers\CharacterLoadingHandler.cs" />
+    <Compile Include="Handlers\CoinsTransferHandler.cs" />
+    <Compile Include="Handlers\DialogActionHandler.cs" />
+    <Compile Include="Handlers\EquipItemHandler.cs" />
+    <Compile Include="Handlers\GameDeregisterEventHandler.cs" />
+    <Compile Include="Handlers\GameRegisterEventHandler.cs" />
+    <Compile Include="Handlers\GameRequestHandler.cs" />
+    <Compile Include="Handlers\ItemTransferHandler.cs" />
+    <Compile Include="Handlers\LeaveZoneHandler.cs" />
+    <Compile Include="Handlers\ListCharactersHandler.cs" />
+    <Compile Include="Handlers\PlayerInGameHandler.cs" />
+    <Compile Include="Handlers\QuestAreaTriggerHandler.cs" />
+    <Compile Include="Handlers\TakeItemHandler.cs" />
+    <Compile Include="Handlers\TargetRequestHandler.cs" />
+    <Compile Include="Handlers\UpdatePositionHandler.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="Model\BlockSide.cs" />
+    <Compile Include="Model\GCharacter.cs" />
+    <Compile Include="Model\GNpc.cs" />
+    <Compile Include="Model\GObject.cs" />
+    <Compile Include="Model\GPlayerInstance.cs" />
+    <Compile Include="Model\GWorld.cs" />
+    <Compile Include="Model\GZone.cs" />
+    <Compile Include="Model\GZoneBlock.cs" />
+    <Compile Include="Model\Interfaces\ICharacter.cs" />
+    <Compile Include="Model\Interfaces\ICondition.cs" />
+    <Compile Include="Model\Interfaces\IContainer.cs" />
+    <Compile Include="Model\Interfaces\IDerivedStat.cs" />
+    <Compile Include="Model\Interfaces\IFactory.cs" />
+    <Compile Include="Model\Interfaces\IFunction.cs" />
+    <Compile Include="Model\Interfaces\IItem.cs" />
+    <Compile Include="Model\Interfaces\ILambda.cs" />
+    <Compile Include="Model\Interfaces\IObject.cs" />
+    <Compile Include="Model\Interfaces\IPlayer.cs" />
+    <Compile Include="Model\Interfaces\IPlayerListener.cs" />
+    <Compile Include="Model\Interfaces\ISpawn.cs" />
+    <Compile Include="Model\Interfaces\IStat.cs" />
+    <Compile Include="Model\Interfaces\IStatHolder.cs" />
+    <Compile Include="Model\Interfaces\ITeleportType.cs" />
+    <Compile Include="Model\Interfaces\IWorld.cs" />
+    <Compile Include="Model\Interfaces\IZone.cs" />
+    <Compile Include="Model\Items\Equipment.cs" />
+    <Compile Include="Model\Items\GContainer.cs" />
+    <Compile Include="Model\Items\GItem.cs" />
+    <Compile Include="Model\Items\GlobalStorage.cs" />
+    <Compile Include="Model\Items\Inventory.cs" />
+    <Compile Include="Model\Position.cs" />
+    <Compile Include="Model\ServerEvents\AttackEvent.cs" />
+    <Compile Include="Model\ServerEvents\CharacterDeathEvent.cs" />
+    <Compile Include="Model\ServerEvents\DeathNotification.cs" />
+    <Compile Include="Model\ServerEvents\GlobalStorageInfo.cs" />
+    <Compile Include="Model\ServerEvents\LeaveZone.cs" />
+    <Compile Include="Model\ServerEvents\ObjectHintUpdate.cs" />
+    <Compile Include="Model\ServerEvents\DeleteObjects.cs" />
+    <Compile Include="Model\ServerEvents\DialogPagePacket.cs" />
+    <Compile Include="Model\ServerEvents\EventNotification.cs" />
+    <Compile Include="Model\ServerEvents\FinishLoading.cs" />
+    <Compile Include="Model\ServerEvents\ContainerSetItem.cs" />
+    <Compile Include="Model\ServerEvents\LootContainer.cs" />
+    <Compile Include="Model\ServerEvents\LootContainerItemRemove.cs" />
+    <Compile Include="Model\ServerEvents\ObjectNotification.cs" />
+    <Compile Include="Model\ServerEvents\LoadZone.cs" />
+    <Compile Include="Model\ServerEvents\MoveTo.cs" />
+    <Compile Include="Model\ServerEvents\PlayerInit.cs" />
+    <Compile Include="Model\ServerEvents\PlayerStatusUpdate.cs" />
+    <Compile Include="Model\ServerEvents\ServerPacket.cs" />
+    <Compile Include="Model\ServerEvents\ShowObjects.cs" />
+    <Compile Include="Model\ServerEvents\StopMove.cs" />
+    <Compile Include="Model\ServerEvents\Target.cs" />
+    <Compile Include="Model\GSpawn.cs" />
+    <Compile Include="Model\ServerEvents\TargetStatus.cs" />
+    <Compile Include="Model\Stats\Armor.cs" />
+    <Compile Include="Model\Stats\AttackRange.cs" />
+    <Compile Include="Model\Stats\AttackSpeed.cs" />
+    <Compile Include="Model\Stats\Constitution.cs" />
+    <Compile Include="Model\Stats\Dexterity.cs" />
+    <Compile Include="Model\Stats\Fame.cs" />
+    <Compile Include="Model\Stats\FrostResistance.cs" />
+    <Compile Include="Model\Stats\Intelligence.cs" />
+    <Compile Include="Model\Stats\Level.cs" />
+    <Compile Include="Model\Stats\MaxHealth.cs" />
+    <Compile Include="Model\Stats\MaxHeat.cs" />
+    <Compile Include="Model\Stats\MovementSpeed.cs" />
+    <Compile Include="Model\Stats\StatHolder.cs" />
+    <Compile Include="Model\Stats\Strength.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quests\Dialog.cs" />
+    <Compile Include="Quests\DialogLink.cs" />
+    <Compile Include="Quests\DialogPage.cs" />
+    <Compile Include="Quests\Implementations\FeelTheBreeze.cs" />
+    <Compile Include="Quests\Implementations\GrabThatNastyBlob.cs" />
+    <Compile Include="Quests\Quest.cs" />
+    <Compile Include="Quests\QuestEventType.cs" />
+    <Compile Include="Quests\QuestState.cs" />
+    <Compile Include="Util.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MMO.Framework\MMO.Framework\MMO.Framework.csproj">
+      <Project>{9f904cc5-850a-4e12-b7bf-7226b032e19c}</Project>
+      <Name>MMO.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MMO.Framework\MMO.Photon\MMO.Photon.csproj">
+      <Project>{e28c77f4-23fc-439c-80b8-5ac67f7c5359}</Project>
+      <Name>MMO.Photon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MayhemCommon\MayhemCommon.csproj">
+      <Project>{E52FEE76-AA53-462E-82F0-2B37AE4220B2}</Project>
+      <Name>MayhemCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubServerCommon\SubServerCommon.csproj">
+      <Project>{63F27FFB-23E4-44AE-9BC2-E68E42D8A804}</Project>
+      <Name>SubServerCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BackgroundThreads\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

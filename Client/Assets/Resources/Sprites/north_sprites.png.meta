@@ -1,0 +1,184 @@
+fileFormatVersion: 2
+guid: d5208e94b51920c4dab7152abdc28a11
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
+  spriteSheet:
+    sprites:
+    - name: north_sprites_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 788
+        width: 146
+        height: 234
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_1
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 919
+        width: 312
+        height: 102
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_2
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 940
+        width: 73
+        height: 82
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_3
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 1000
+        width: 136
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_4
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 992
+        width: 305
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_5
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 959
+        width: 343
+        height: 30
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_6
+      rect:
+        serializedVersion: 2
+        x: 891
+        y: 976
+        width: 49
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_7
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 970
+        width: 54
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_8
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 924
+        width: 197
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_9
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 935
+        width: 198
+        height: 21
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_10
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 771
+        width: 197
+        height: 143
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_11
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 911
+        width: 163
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_12
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 895
+        width: 307
+        height: 26
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_13
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 608
+        width: 385
+        height: 276
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: north_sprites_14
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 0
+        width: 391
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+  spritePackingTag: 
+  userData: 

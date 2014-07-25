@@ -1,0 +1,180 @@
+  <MayhemServer
+		MaxMessageSize="512000"
+		MaxQueuedDataPerPeer="512000"
+		PerPeerMaxReliableDataInTransit="51200"
+		PerPeerTransmitRateLimitKBSec="256"
+		PerPeerTransmitRatePeriodMilliseconds="200"
+		MinimumTimeout="5000"
+		MaximumTimeout="30000"
+		DisplayName="Mayhem server">
+
+    <!-- 0.0.0.0 opens listeners on all available IPs. Machines with multiple IPs should define the correct one here. -->
+    <!-- Port 5055 is Photon's default for UDP connections. -->
+    <UDPListeners>
+      <UDPListener
+				IPAddress="0.0.0.0"
+				Port="5055"
+				OverrideApplication="Proxy">
+      </UDPListener>
+      <UDPListener
+				IPAddress="0.0.0.0"
+				Port="5056"
+				OverrideApplication="Login">
+      </UDPListener>
+      <UDPListener
+				IPAddress="0.0.0.0"
+				Port="5057"
+				OverrideApplication="Game">
+      </UDPListener>
+      <UDPListener
+				IPAddress="0.0.0.0"
+				Port="5058"
+				OverrideApplication="Chat">
+      </UDPListener>
+    </UDPListeners>
+
+    <!-- 0.0.0.0 opens listeners on all available IPs. Machines with multiple IPs should define the correct one here. -->
+    <TCPListeners>
+      <!-- TCP listener for Game clients on Master application -->
+      <TCPListener
+				IPAddress="0.0.0.0"
+				Port="4530"
+				OverrideApplication="Proxy">
+      </TCPListener>
+
+      <TCPListener
+				IPAddress="0.0.0.0"
+				Port="4531"
+				OverrideApplication="Login">
+      </TCPListener>
+
+      <TCPListener
+				IPAddress="0.0.0.0"
+				Port="4532"
+				OverrideApplication="Game">
+      </TCPListener>
+      
+      <TCPListener
+				IPAddress="0.0.0.0"
+				Port="4533"
+				OverrideApplication="Chat">
+      </TCPListener>
+
+      <!-- DON'T EDIT THIS. TCP listener for GameServers on Master application -->
+      <TCPListener
+				IPAddress="0.0.0.0"
+				Port="4520">
+      </TCPListener>
+    </TCPListeners>
+
+    <!-- Policy request listener for Unity and Flash (port 843) and Silverlight (port 943)  -->
+    <TCPPolicyListeners>
+      <!-- multiple Listeners allowed for different ports -->
+      <TCPPolicyListener
+				IPAddress="0.0.0.0"
+				Port="843"
+				Application="Policy">
+      </TCPPolicyListener>
+      <TCPPolicyListener
+				IPAddress="0.0.0.0"
+				Port="943"
+				Application="Policy">
+      </TCPPolicyListener>
+    </TCPPolicyListeners>
+
+    <!-- WebSocket (and Flash-Fallback) compatible listener -->
+    <WebSocketListeners>
+      <!--<WebSocketListener
+				IPAddress="0.0.0.0"
+				Port="9090"
+				DisableNagle="true"
+				InactivityTimeout="10000"
+				OverrideApplication="Master">
+      </WebSocketListener>
+
+      <WebSocketListener
+				IPAddress="0.0.0.0"
+				Port="9091"
+				DisableNagle="true"
+				InactivityTimeout="10000"
+				OverrideApplication="Game1">
+      </WebSocketListener>
+
+      <WebSocketListener
+				IPAddress="0.0.0.0"
+				Port="9092"
+				DisableNagle="true"
+				InactivityTimeout="10000"
+				OverrideApplication="Game2">
+      </WebSocketListener>-->
+    </WebSocketListeners>
+
+    <!-- Defines the Photon Runtime Assembly to use. -->
+    <Runtime
+			Assembly="PhotonHostRuntime, Culture=neutral"
+			Type="PhotonHostRuntime.PhotonDomainManager"
+			UnhandledExceptionPolicy="Ignore">
+    </Runtime>
+
+    <!-- Defines which applications are loaded on start and which of them is used by default. Make sure the default application is defined. -->
+    <!-- Application-folders must be located in the same folder as the bin_win32 folders. The BaseDirectory must include a "bin" folder. -->
+    <Applications Default="Proxy">
+      <Application
+				Name="Proxy"
+				BaseDirectory="MayhemAndHell"
+				Assembly="ProxyServer"
+				Type="ProxyServer.ProxyServer"
+				ForceAutoRestart="true"
+				WatchFiles="dll;config"
+				ExcludeFiles="log4net.config"
+				>
+      </Application>
+      <Application
+				Name="Login"
+				BaseDirectory="MayhemAndHell"
+				Assembly="LoginServer"
+				Type="LoginServer.LoginServer"
+				ForceAutoRestart="true"
+				WatchFiles="dll;config"
+				ExcludeFiles="log4net.config">
+      </Application>
+      <Application
+				Name="Game"
+				BaseDirectory="MayhemAndHell"
+				Assembly="GameServer"
+				Type="GameServer.GameServer"
+				ForceAutoRestart="true"
+				WatchFiles="dll;config"
+				ExcludeFiles="log4net.config">
+      </Application>
+      <Application
+				Name="Chat"
+				BaseDirectory="MayhemAndHell"
+				Assembly="ChatServer"
+				Type="ChatServer.ChatServer"
+				ForceAutoRestart="true"
+				WatchFiles="dll;config"
+				ExcludeFiles="log4net.config">
+      </Application>
+      <Application
+				Name="Policy"
+				BaseDirectory="Policy"
+				Assembly="Policy.Application"
+				Type="Exitgames.Realtime.Policy.Application.Policy"
+				ForceAutoRestart="true"
+				WatchFiles="dll;config;xml"
+				ExcludeFiles="log4net.config">
+      </Application>
+
+      <!-- CounterPublisher Application -->
+      <Application
+				Name="CounterPublisher"
+				BaseDirectory="CounterPublisher"
+				Assembly="CounterPublisher"
+				Type="Photon.CounterPublisher.Application"
+				ForceAutoRestart="true"
+				WatchFiles="dll;config"
+				ExcludeFiles="log4net.config">
+      </Application>
+    </Applications>
+  </MayhemServer>

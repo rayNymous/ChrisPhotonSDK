@@ -1,0 +1,121 @@
+fileFormatVersion: 2
+guid: 29a8c834db6aff04ba1fbd6801d16014
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
+  spriteSheet:
+    sprites:
+    - name: right_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 750
+        width: 126
+        height: 272
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: right_1
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 892
+        width: 170
+        height: 129
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: right_2
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 448
+        width: 663
+        height: 575
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: right_3
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 604
+        width: 193
+        height: 133
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: right_4
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 484
+        width: 156
+        height: 118
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: right_5
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 128
+        width: 999
+        height: 318
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: right_6
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 56
+        width: 339
+        height: 72
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: right_7
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 801
+        width: 160
+        height: 86
+      alignment: 0
+      pivot: {x: .5, y: .5}
+  spritePackingTag: 
+  userData: 

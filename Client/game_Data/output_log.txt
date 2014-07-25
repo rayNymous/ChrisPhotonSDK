@@ -1,0 +1,15 @@
+Initialize engine version: 4.3.3f1 (c8ca9b6b9936)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [nvd3dumx.dll 9.18.13.3221]
+    Renderer: NVIDIA GeForce GTX 680
+    Vendor:   NVIDIA
+    VRAM:     1985 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\Programming\Unity\Mayhem and Hell\game_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\Programming\Unity\Mayhem and Hell\game_Data\Managed\UnityEngine.dll into Unity Child Domain
+- Completed reload, in  0.079 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
