@@ -53,8 +53,8 @@ TextureImporter:
         y: 992
         width: 29
         height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .616979003, y: .0795544013}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_1
       rect:
@@ -63,8 +63,8 @@ TextureImporter:
         y: 952
         width: 40
         height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .508736491, y: .22697258}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_2
       rect:
@@ -73,8 +73,8 @@ TextureImporter:
         y: 952
         width: 40
         height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .499999821, y: .141078636}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_3
       rect:
@@ -83,8 +83,8 @@ TextureImporter:
         y: 953
         width: 30
         height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .336910516, y: .150524899}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_4
       rect:
@@ -93,8 +93,8 @@ TextureImporter:
         y: 919
         width: 39
         height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .459395915, y: .888168335}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_5
       rect:
@@ -103,8 +103,8 @@ TextureImporter:
         y: 919
         width: 33
         height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .487101018, y: .797956526}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_6
       rect:
@@ -113,8 +113,8 @@ TextureImporter:
         y: 921
         width: 43
         height: 23
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .504949152, y: .805361569}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_7
       rect:
@@ -123,8 +123,8 @@ TextureImporter:
         y: 921
         width: 46
         height: 23
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .472239614, y: .842375398}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_8
       rect:
@@ -133,8 +133,8 @@ TextureImporter:
         y: 919
         width: 35
         height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .520815194, y: .889956057}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_9
       rect:
@@ -143,8 +143,8 @@ TextureImporter:
         y: 765
         width: 31
         height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 4
+      pivot: {x: 0, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

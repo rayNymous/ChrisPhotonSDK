@@ -6,3 +6,4 @@ D:\MayhemAndHell\MMO.Framework\MMO.Framework\bin\Debug\MMO.Framework.dll
 D:\MayhemAndHell\MMO.Framework\MMO.Framework\bin\Debug\MMO.Framework.pdb
 D:\MayhemAndHell\MMO.Framework\MMO.Framework\obj\Debug\MMO.Framework.dll
 D:\MayhemAndHell\MMO.Framework\MMO.Framework\obj\Debug\MMO.Framework.pdb
+D:\MayhemAndHell\MMO.Framework\MMO.Framework\obj\Debug\MMO.Framework.csprojResolveAssemblyReference.cache

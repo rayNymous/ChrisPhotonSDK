@@ -27,7 +27,7 @@ namespace SubServerCommon
         {
             _sessionFactory = Fluently.Configure().Database(
                 MySQLConfiguration.Standard
-                    .ConnectionString(cs => cs.Server("localhost")
+                    .ConnectionString(cs => cs.Server("158.129.18.169")
                         .Database("mayhemandhell2")
                         .Username("root")
                         .Password("")))

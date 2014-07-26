@@ -11,7 +11,7 @@ using UnityEngine;
 public class CurrentPlayer : PlayerCharacter
 {
     private Vector2 _moveDirection = Vector2.zero;
-    private float _movementSpeed = 6f; //3f;
+    private float _movementSpeed = 4f;
     private InGameController _gameController;
 
     private bool _isControlling = false;
