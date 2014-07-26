@@ -30,6 +30,8 @@ public class CurrentPlayer : PlayerCharacter
     private Transform _rotationTransform;
     private int _lastScale = 0;
 
+    private EasyJoystick _joystick;
+
     public float MovementSpeed
     {
         get { return _movementSpeed; }
@@ -51,6 +53,8 @@ public class CurrentPlayer : PlayerCharacter
         para.Add((byte)ClientParameterCode.SubOperationCode, MessageSubCode.PositionUpdate);
         para.Add((byte)ClientParameterCode.Object, new object());
         _positionUpdateRequest = new OperationRequest() { OperationCode = (byte)ClientOperationCode.Game, Parameters = para };
+
+        _joystick = FindObjectOfType<EasyJoystick>();
     }
 
     public override void OnStart()
@@ -76,8 +80,11 @@ public class CurrentPlayer : PlayerCharacter
         //    return;
         //}
 
-        _moveDirection.x = Input.GetAxisRaw("Horizontal");
-        _moveDirection.y = Input.GetAxisRaw("Vertical");
+
+        var axis = _joystick.JoystickAxis;
+
+        _moveDirection.x = axis.x;
+        _moveDirection.y = axis.y;
 
         //_rigidBody.velocity = _moveDirection * MovementSpeed;
 
