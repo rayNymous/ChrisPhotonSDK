@@ -31,13 +31,13 @@ public class TargetFollow : MonoBehaviour
         {
             if (IgnoreZ)
             {
-                this.transform.position = new Vector3(Target.TargetPosition.transform.position.x,
-                    Target.TargetPosition.transform.position.y,
+                this.transform.position = new Vector3(Target.BottomPosition.transform.position.x,
+                    Target.BottomPosition.transform.position.y,
                     _startingPosition.position.z);
             }
             else
             {
-                this.transform.position = Target.TargetPosition.transform.position;
+                this.transform.position = Target.BottomPosition.transform.position;
             }
         }
     }
@@ -51,7 +51,7 @@ public class TargetFollow : MonoBehaviour
     {
         Target = target;
         NGUITools.SetActive(gameObject, true);
-        transform.localScale = target.TargetPosition.transform.localScale;
+        transform.localScale = target.BottomPosition.transform.localScale;
     }
 
 }

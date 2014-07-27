@@ -49,8 +49,8 @@ namespace ProxyServer.Handlers
             {
                 if (Server.ConnectionCollection<PhotonConnectionCollection>() != null)
                 {
-                    Log.DebugFormat("Passing login credentials to login server");
-                    Server.ConnectionCollection<PhotonConnectionCollection>().GetServerByType((int) ServerType.Chat)
+                    // TODO Send to chat server instead of game server (if necessary?)
+                    Server.ConnectionCollection<PhotonConnectionCollection>().GetServerByType((int) ServerType.Game)
                         .SendOperationRequest(operationRequest, new SendParameters());
                 }
                 else

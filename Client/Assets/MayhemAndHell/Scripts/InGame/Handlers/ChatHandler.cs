@@ -1,38 +1,39 @@
 ﻿
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
 using ExitGames.Client.Photon;
 using MayhemCommon;
 using MayhemCommon.MessageObjects;
+using UnityEngine;
 
-public class ChatHandler : PhotonEventHandler
+public class ChatHandler : PacketHandler
 {
-
-    public string ChatText { get; set; }
+    private EntityManager _entityManager;
 
     public ChatHandler(InGameController controller) : base(controller)
     {
+        _entityManager = UnityEngine.Object.FindObjectOfType<EntityManager>();
     }
 
-    public override byte Code
+    public override MessageSubCode MessageSubCode
     {
-        get { return (byte) ClientEventCode.Chat; }
+        get { return MessageSubCode.Chat; }
     }
 
     public override void OnHandleEvent(EventData eventData)
     {
-        InGameController controller = this.controller as InGameController;
+        var chatItem = Deserialize<ChatItem>((byte[])eventData.Parameters[(byte)ClientParameterCode.Object]);
 
-        if (controller != null)
-        {
-            if (eventData.Parameters.ContainsKey((byte) ClientParameterCode.Object))
-            {
-                XmlSerializer mySerializer = new XmlSerializer(typeof(ChatItem));
-                StringReader inStream = new StringReader((string)eventData.Parameters[(byte)ClientParameterCode.Object]);
-                controller.AddChatText(((ChatItem)mySerializer.Deserialize(inStream)).Text);
-            }
-        }
+        var wObject = _entityManager.GetObject(chatItem.InstanceId);
+
+        Controller.InGameView.Gui.SpeechBubbleManager.DisplayBubble(wObject, chatItem.Text);
+
+        var text = String.Format("[{0}] [{1}] {2}", chatItem.Type, chatItem.Name, chatItem.Text);
+
+        (controller as InGameController).AddChatText(text);
+
     }
 }

@@ -35,40 +35,38 @@ namespace ChatServer.Handlers
 
         protected override bool OnHandleMessage(IMessage message, PhotonServerPeer serverPeer)
         {
-            if (message.Parameters.ContainsKey((byte) ClientParameterCode.Object))
-            {
-                var peerId = new Guid((Byte[]) message.Parameters[(byte) ClientParameterCode.PeerId]);
-                var mySerializer = new XmlSerializer(typeof (ChatItem));
-                var inStream = new StringReader((string) message.Parameters[(byte) ClientParameterCode.Object]);
-                var chatItem = (ChatItem) mySerializer.Deserialize(inStream);
+            //if (message.Parameters.ContainsKey((byte) ClientParameterCode.Object))
+            //{
+            //    var peerId = new Guid((Byte[]) message.Parameters[(byte) ClientParameterCode.PeerId]);
+            //    var mySerializer = new XmlSerializer(typeof (ChatItem));
+            //    var inStream = new StringReader((string) message.Parameters[(byte) ClientParameterCode.Object]);
+            //    var chatItem = (ChatItem) mySerializer.Deserialize(inStream);
 
+            //    var player = Server.ConnectionCollection<SubServerConnectionCollection>().Clients[peerId].ClientData<ChatPlayer>();
 
-                switch (chatItem.Type)
-                {
-                    case ChatType.General:
-                        chatItem.Text = string.Format("[General] {0} : {1}",
-                            Server.ConnectionCollection<SubServerConnectionCollection>().Clients[peerId]
-                                .ClientData<ChatPlayer>().CharacterName, chatItem.Text);
-                        var outStream = new StringWriter();
+            //    switch (chatItem.Type)
+            //    {
+            //        case ChatType.General:
+            //            var outStream = new StringWriter();
 
-                        mySerializer.Serialize(outStream, chatItem);
+            //            mySerializer.Serialize(outStream, chatItem);
 
-                        foreach (var client in Server.ConnectionCollection<SubServerConnectionCollection>().Clients)
-                        {
-                            var para = new Dictionary<byte, object>
-                            {
-                                {(byte) ClientParameterCode.PeerId, client.Key.ToByteArray()},
-                                {(byte) ClientParameterCode.Object, outStream.ToString()}
-                            };
-                            var eventData = new EventData {Code = (byte) ClientEventCode.Chat, Parameters = para};
+            //            foreach (var client in Server.ConnectionCollection<SubServerConnectionCollection>().Clients)
+            //            {
+            //                var para = new Dictionary<byte, object>
+            //                {
+            //                    {(byte) ClientParameterCode.PeerId, client.Key.ToByteArray()},
+            //                    {(byte) ClientParameterCode.Object, outStream.ToString()}
+            //                };
+            //                var eventData = new EventData {Code = (byte) ClientEventCode.Chat, Parameters = para};
 
-                            client.Value.ClientData<ServerData>().ServerPeer.SendEvent(eventData, new SendParameters());
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
+            //                client.Value.ClientData<ServerData>().ServerPeer.SendEvent(eventData, new SendParameters());
+            //            }
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
             return true;
         }
     }

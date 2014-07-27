@@ -103,6 +103,22 @@ namespace GameServer.Model
             return RelationshipType.Neutral;
         }
 
+        /// <summary>
+        /// Sends a text message locally
+        /// </summary>
+        /// <param name="text"></param>
+        public void Say(string text)
+        {
+            BroadcastMessage(new ChatMessagePacket(new ChatItem()
+            {
+                Name = Name, 
+                InstanceId = InstanceId,
+                Text = text,
+                Type = ChatType.Local,
+                IsNpc = (this as GPlayerInstance) != null
+            }));
+        }
+
         public int AttackCooldown
         {
             get { return _attackCooldownUntil; }

@@ -448,7 +448,7 @@ public static class NGUIEditorTools
 			)
 		{
 			settings.readable = true;
-			settings.textureFormat = TextureImporterFormat.ARGB32;
+			if (NGUISettings.trueColorAtlas) settings.textureFormat = TextureImporterFormat.ARGB32;
 			settings.npotScale = TextureImporterNPOTScale.None;
 #if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1
 			settings.alphaIsTransparency = false;
@@ -482,12 +482,15 @@ public static class NGUIEditorTools
 			settings.maxTextureSize = 4096;
 			settings.wrapMode = TextureWrapMode.Clamp;
 			settings.npotScale = TextureImporterNPOTScale.ToNearest;
-			settings.textureFormat = TextureImporterFormat.ARGB32;
-			settings.filterMode = FilterMode.Trilinear;
+
+			if (NGUISettings.trueColorAtlas)
+			{
+				settings.textureFormat = TextureImporterFormat.ARGB32;
+				settings.filterMode = FilterMode.Trilinear;
+			}
+
 			settings.aniso = 4;
-#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1
 			settings.alphaIsTransparency = alphaTransparency;
-#endif
 			ti.SetTextureSettings(settings);
 			AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate | ImportAssetOptions.ForceSynchronousImport);
 		}
@@ -931,7 +934,7 @@ public static class NGUIEditorTools
 			NGUISettings.selectedSprite = spriteName;
 			SpriteSelector.Show(callback);
 		}
-		GUILayout.Space(18f);
+		NGUIEditorTools.DrawPadding();
 		GUILayout.EndHorizontal();
 	}
 
@@ -990,7 +993,7 @@ public static class NGUIEditorTools
 
 	static public void DrawSpriteField (string label, SerializedObject ob, string spriteField, params GUILayoutOption[] options)
 	{
-		DrawSpriteField(label, ob, ob.FindProperty("atlas"), ob.FindProperty(spriteField), 76f, false, false, options);
+		DrawSpriteField(label, ob, ob.FindProperty("atlas"), ob.FindProperty(spriteField), 82f, false, false, options);
 	}
 
 	/// <summary>
@@ -999,7 +1002,7 @@ public static class NGUIEditorTools
 
 	static public void DrawSpriteField (string label, SerializedObject ob, SerializedProperty atlas, SerializedProperty sprite, params GUILayoutOption[] options)
 	{
-		DrawSpriteField(label, ob, atlas, sprite, 76f, false, false, options);
+		DrawSpriteField(label, ob, atlas, sprite, 72f, false, false, options);
 	}
 
 	/// <summary>
@@ -1008,7 +1011,7 @@ public static class NGUIEditorTools
 
 	static public void DrawSpriteField (string label, SerializedObject ob, SerializedProperty atlas, SerializedProperty sprite, bool removable, params GUILayoutOption[] options)
 	{
-		DrawSpriteField(label, ob, atlas, sprite, 76f, false, removable, options);
+		DrawSpriteField(label, ob, atlas, sprite, 72f, false, removable, options);
 	}
 
 	/// <summary>
@@ -1040,13 +1043,10 @@ public static class NGUIEditorTools
 				EditorGUI.EndDisabledGroup();
 
 				EditorGUI.BeginDisabledGroup(!removable);
-#if UNITY_3_5
-				if (GUILayout.Button("X", GUILayout.Width(20f))) sprite.stringValue = "";
-#else
 				if (GUILayout.Button("", "ToggleMixed", GUILayout.Width(20f))) sprite.stringValue = "";
-#endif
 				EditorGUI.EndDisabledGroup();
-				if (padded) GUILayout.Space(18f);
+				if (padded) GUILayout.Space(12f);
+				else GUILayout.Space(-6f);
 				GUILayout.EndHorizontal();
 			}
 			GUILayout.EndHorizontal();
@@ -1129,7 +1129,7 @@ public static class NGUIEditorTools
 			{
 				GUILayout.BeginHorizontal();
 				GUILayout.Label(spriteName, "HelpBox", GUILayout.Height(18f));
-				GUILayout.Space(18f);
+				NGUIEditorTools.DrawPadding();
 				GUILayout.EndHorizontal();
 
 				if (GUILayout.Button("Edit", GUILayout.Width(40f)))
@@ -1266,47 +1266,61 @@ public static class NGUIEditorTools
 	/// Draw a distinctly different looking header label
 	/// </summary>
 
-	static public bool DrawHeader (string text) { return DrawHeader(text, text, false); }
+	static public bool DrawMinimalisticHeader (string text) { return DrawHeader(text, text, false, true); }
 
 	/// <summary>
 	/// Draw a distinctly different looking header label
 	/// </summary>
 
-	static public bool DrawHeader (string text, string key) { return DrawHeader(text, key, false); }
+	static public bool DrawHeader (string text) { return DrawHeader(text, text, false, NGUISettings.minimalisticLook); }
 
 	/// <summary>
 	/// Draw a distinctly different looking header label
 	/// </summary>
 
-	static public bool DrawHeader (string text, bool forceOn) { return DrawHeader(text, text, forceOn); }
+	static public bool DrawHeader (string text, string key) { return DrawHeader(text, key, false, NGUISettings.minimalisticLook); }
 
 	/// <summary>
 	/// Draw a distinctly different looking header label
 	/// </summary>
 
-	static public bool DrawHeader (string text, string key, bool forceOn)
+	static public bool DrawHeader (string text, bool detailed) { return DrawHeader(text, text, detailed, !detailed); }
+
+	/// <summary>
+	/// Draw a distinctly different looking header label
+	/// </summary>
+
+	static public bool DrawHeader (string text, string key, bool forceOn, bool minimalistic)
 	{
 		bool state = EditorPrefs.GetBool(key, true);
 
-		GUILayout.Space(3f);
+		if (!minimalistic) GUILayout.Space(3f);
 		if (!forceOn && !state) GUI.backgroundColor = new Color(0.8f, 0.8f, 0.8f);
 		GUILayout.BeginHorizontal();
-		GUILayout.Space(3f);
-
 		GUI.changed = false;
-#if UNITY_3_5
-		if (state) text = "\u25B2 " + text;
-		else text = "\u25BC " + text;
-		if (!GUILayout.Toggle(true, text, "dragtab", GUILayout.MinWidth(20f))) state = !state;
-#else
-		text = "<b><size=11>" + text + "</size></b>";
-		if (state) text = "\u25B2 " + text;
-		else text = "\u25BC " + text;
-		if (!GUILayout.Toggle(true, text, "dragtab", GUILayout.MinWidth(20f))) state = !state;
-#endif
+
+		if (minimalistic)
+		{
+			if (state) text = "\u25BC" + (char)0x200a + text;
+			else text = "\u25BA" + (char)0x200a + text;
+
+			GUILayout.BeginHorizontal();
+			GUI.contentColor = EditorGUIUtility.isProSkin ? new Color(1f, 1f, 1f, 0.7f) : new Color(0f, 0f, 0f, 0.7f);
+			if (!GUILayout.Toggle(true, text, "PreToolbar2", GUILayout.MinWidth(20f))) state = !state;
+			GUI.contentColor = Color.white;
+			GUILayout.EndHorizontal();
+		}
+		else
+		{
+			text = "<b><size=11>" + text + "</size></b>";
+			if (state) text = "\u25BC " + text;
+			else text = "\u25BA " + text;
+			if (!GUILayout.Toggle(true, text, "dragtab", GUILayout.MinWidth(20f))) state = !state;
+		}
+
 		if (GUI.changed) EditorPrefs.SetBool(key, state);
 
-		GUILayout.Space(2f);
+		if (!minimalistic) GUILayout.Space(2f);
 		GUILayout.EndHorizontal();
 		GUI.backgroundColor = Color.white;
 		if (!forceOn && !state) GUILayout.Space(3f);
@@ -1317,11 +1331,28 @@ public static class NGUIEditorTools
 	/// Begin drawing the content area.
 	/// </summary>
 
-	static public void BeginContents ()
+	static public void BeginContents () { BeginContents(NGUISettings.minimalisticLook); }
+
+	static bool mEndHorizontal = false;
+
+	/// <summary>
+	/// Begin drawing the content area.
+	/// </summary>
+
+	static public void BeginContents (bool minimalistic)
 	{
-		GUILayout.BeginHorizontal();
-		GUILayout.Space(4f);
-		EditorGUILayout.BeginHorizontal("AS TextArea", GUILayout.MinHeight(10f));
+		if (!minimalistic)
+		{
+			mEndHorizontal = true;
+			GUILayout.BeginHorizontal();
+			EditorGUILayout.BeginHorizontal("AS TextArea", GUILayout.MinHeight(10f));
+		}
+		else
+		{
+			mEndHorizontal = false;
+			EditorGUILayout.BeginHorizontal(GUILayout.MinHeight(10f));
+			GUILayout.Space(10f);
+		}
 		GUILayout.BeginVertical();
 		GUILayout.Space(2f);
 	}
@@ -1335,8 +1366,13 @@ public static class NGUIEditorTools
 		GUILayout.Space(3f);
 		GUILayout.EndVertical();
 		EditorGUILayout.EndHorizontal();
-		GUILayout.Space(3f);
-		GUILayout.EndHorizontal();
+
+		if (mEndHorizontal)
+		{
+			GUILayout.Space(3f);
+			GUILayout.EndHorizontal();
+		}
+
 		GUILayout.Space(3f);
 	}
 
@@ -1346,19 +1382,39 @@ public static class NGUIEditorTools
 
 	static public void DrawEvents (string text, Object undoObject, List<EventDelegate> list)
 	{
-		DrawEvents(text, undoObject, list, null, null);
+		DrawEvents(text, undoObject, list, null, null, false);
 	}
 
 	/// <summary>
 	/// Draw a list of fields for the specified list of delegates.
 	/// </summary>
 
-	static public void DrawEvents (string text, Object undoObject, List<EventDelegate> list, string noTarget, string notValid)
+	static public void DrawEvents (string text, Object undoObject, List<EventDelegate> list, bool minimalistic)
 	{
-		if (!NGUIEditorTools.DrawHeader(text)) return;
-		NGUIEditorTools.BeginContents();
-		EventDelegateEditor.Field(undoObject, list, notValid, notValid);
-		NGUIEditorTools.EndContents();
+		DrawEvents(text, undoObject, list, null, null, minimalistic);
+	}
+
+	/// <summary>
+	/// Draw a list of fields for the specified list of delegates.
+	/// </summary>
+
+	static public void DrawEvents (string text, Object undoObject, List<EventDelegate> list, string noTarget, string notValid, bool minimalistic)
+	{
+		if (!NGUIEditorTools.DrawHeader(text, text, false, minimalistic)) return;
+
+		if (!minimalistic)
+		{
+			NGUIEditorTools.BeginContents(minimalistic);
+			GUILayout.BeginHorizontal();
+			GUILayout.BeginVertical();
+
+			EventDelegateEditor.Field(undoObject, list, notValid, notValid, minimalistic);
+
+			GUILayout.EndVertical();
+			GUILayout.EndHorizontal();
+			NGUIEditorTools.EndContents();
+		}
+		else EventDelegateEditor.Field(undoObject, list, notValid, notValid, minimalistic);
 	}
 
 	/// <summary>
@@ -1407,6 +1463,8 @@ public static class NGUIEditorTools
 
 		if (sp != null)
 		{
+			if (NGUISettings.minimalisticLook) padding = false;
+
 			if (padding) EditorGUILayout.BeginHorizontal();
 			
 			if (label != null) EditorGUILayout.PropertyField(sp, new GUIContent(label), options);
@@ -1414,7 +1472,7 @@ public static class NGUIEditorTools
 
 			if (padding) 
 			{
-				GUILayout.Space(18f);
+				NGUIEditorTools.DrawPadding();
 				EditorGUILayout.EndHorizontal();
 			}
 		}
@@ -1445,7 +1503,7 @@ public static class NGUIEditorTools
 
 			if (padding)
 			{
-				GUILayout.Space(18f);
+				NGUIEditorTools.DrawPadding();
 				EditorGUILayout.EndHorizontal();
 			}
 		}
@@ -1537,17 +1595,17 @@ public static class NGUIEditorTools
 	/// Just like NGUIMath.Raycast, but doesn't rely on having a camera.
 	/// </summary>
 
-	static public BetterList<UIWidget> SceneViewRaycast (Vector2 mousePos)
+	static public List<UIWidget> SceneViewRaycast (Vector2 mousePos)
 	{
-		BetterList<UIWidget> list = new BetterList<UIWidget>();
+		List<UIWidget> list = new List<UIWidget>();
 
-		for (int i = 0; i < UIPanel.list.size; ++i)
+		for (int i = 0; i < UIPanel.list.Count; ++i)
 		{
-			UIPanel p = UIPanel.list.buffer[i];
+			UIPanel p = UIPanel.list[i];
 
-			for (int b = 0; b < p.widgets.size; ++b)
+			for (int b = 0; b < p.widgets.Count; ++b)
 			{
-				UIWidget w = p.widgets.buffer[b];
+				UIWidget w = p.widgets[b];
 				Vector3[] corners = w.worldCorners;
 				if (SceneViewDistanceToRectangle(corners, mousePos) == 0f)
 					list.Add(w);
@@ -1570,15 +1628,15 @@ public static class NGUIEditorTools
 	static public bool SelectWidget (GameObject start, Vector2 pos, bool inFront)
 	{
 		GameObject go = null;
-		BetterList<UIWidget> widgets = SceneViewRaycast(pos);
-		if (widgets == null || widgets.size == 0) return false;
+		List<UIWidget> widgets = SceneViewRaycast(pos);
+		if (widgets == null || widgets.Count == 0) return false;
 		bool found = false;
 
 		if (!inFront)
 		{
 			if (start != null)
 			{
-				for (int i = 0; i < widgets.size; ++i)
+				for (int i = 0; i < widgets.Count; ++i)
 				{
 					UIWidget w = widgets[i];
 
@@ -1596,7 +1654,7 @@ public static class NGUIEditorTools
 		{
 			if (start != null)
 			{
-				for (int i = widgets.size; i > 0; )
+				for (int i = widgets.Count; i > 0; )
 				{
 					UIWidget w = widgets[--i];
 
@@ -1608,7 +1666,7 @@ public static class NGUIEditorTools
 					go = w.cachedGameObject;
 				}
 			}
-			if (!found) go = widgets[widgets.size - 1].cachedGameObject;
+			if (!found) go = widgets[widgets.Count - 1].cachedGameObject;
 		}
 
 		if (go != null && go != start)
@@ -1625,11 +1683,7 @@ public static class NGUIEditorTools
 
 	static public void SetLabelWidth (float width)
 	{
-#if UNITY_3_5 || UNITY_4_0 || UNITY_4_1 || UNITY_4_2
-		EditorGUIUtility.LookLikeControls(width);
-#else
 		EditorGUIUtility.labelWidth = width;
-#endif
 	}
 
 	/// <summary>
@@ -1640,11 +1694,8 @@ public static class NGUIEditorTools
 	{
 		if (objects != null && objects.Length > 0)
 		{
-#if UNITY_3_5 || UNITY_4_0 || UNITY_4_1 || UNITY_4_2
-			UnityEditor.Undo.RegisterUndo(objects, name);
-#else
 			UnityEditor.Undo.RecordObjects(objects, name);
-#endif
+
 			foreach (Object obj in objects)
 			{
 				if (obj == null) continue;
@@ -1659,8 +1710,9 @@ public static class NGUIEditorTools
 
 	static public void HideMoveTool (bool hide)
 	{
-#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1 && !UNITY_4_2 && !UNITY_4_3
-		UnityEditor.Tools.hidden = hide && (UnityEditor.Tools.current == UnityEditor.Tool.Move);
+#if !UNITY_4_3
+		UnityEditor.Tools.hidden = hide && (UnityEditor.Tools.current == UnityEditor.Tool.Move) &&
+			UIWidget.showHandlesWithMoveTool && !NGUISettings.showTransformHandles;
 #endif
 	}
 
@@ -1800,17 +1852,17 @@ public static class NGUIEditorTools
 
 	static public void ShowSpriteSelectionMenu (Vector2 screenPos)
 	{
-		BetterList<UIWidget> widgets = NGUIEditorTools.SceneViewRaycast(screenPos);
-		BetterList<UIWidgetContainer> containers = new BetterList<UIWidgetContainer>();
-		BetterList<MenuEntry> entries = new BetterList<MenuEntry>();
-		BetterList<UIPanel> panels = new BetterList<UIPanel>();
+		List<UIWidget> widgets = NGUIEditorTools.SceneViewRaycast(screenPos);
+		List<UIWidgetContainer> containers = new List<UIWidgetContainer>();
+		List<MenuEntry> entries = new List<MenuEntry>();
+		List<UIPanel> panels = new List<UIPanel>();
 
 		bool divider = false;
 		UIWidget topWidget = null;
 		UIPanel topPanel = null;
 
 		// Process widgets and their containers in the raycast order
-		for (int i = 0; i < widgets.size; ++i)
+		for (int i = 0; i < widgets.Count; ++i)
 		{
 			UIWidget w = widgets[i];
 			if (topWidget == null) topWidget = w;
@@ -1849,7 +1901,7 @@ public static class NGUIEditorTools
 				}
 			}
 
-			string name = (i + 1 == widgets.size) ? (w.name + " (top-most)") : w.name;
+			string name = (i + 1 == widgets.Count) ? (w.name + " (top-most)") : w.name;
 			entries.Add(new MenuEntry(name, w.gameObject));
 			divider = false;
 		}
@@ -1858,7 +1910,7 @@ public static class NGUIEditorTools
 		NGUIContextMenu.AddCommonItems(Selection.activeGameObject);
 
 		// Add widgets to the menu in the reverse order so that they are shown with the top-most widget first (on top)
-		for (int i = entries.size; i > 0; )
+		for (int i = entries.Count; i > 0; )
 		{
 			MenuEntry ent = entries[--i];
 
@@ -1918,9 +1970,7 @@ public static class NGUIEditorTools
 		return (!string.IsNullOrEmpty(path)) ? AssetDatabase.AssetPathToGUID(path) : null;
 	}
 
-#if !UNITY_3_5
 	static MethodInfo s_GetInstanceIDFromGUID;
-#endif
 
 	/// <summary>
 	/// Convert the specified GUID to an object reference.
@@ -1929,13 +1979,12 @@ public static class NGUIEditorTools
 	static public Object GUIDToObject (string guid)
 	{
 		if (string.IsNullOrEmpty(guid)) return null;
-#if !UNITY_3_5
-		// This method is not going to be available in Unity 3.5
+		
 		if (s_GetInstanceIDFromGUID == null)
 			s_GetInstanceIDFromGUID = typeof(AssetDatabase).GetMethod("GetInstanceIDFromGUID", BindingFlags.Static | BindingFlags.NonPublic);
+
 		int id = (int)s_GetInstanceIDFromGUID.Invoke(null, new object[] { guid });
 		if (id != 0) return EditorUtility.InstanceIDToObject(id);
-#endif
 		string path = AssetDatabase.GUIDToAssetPath(guid);
 		if (string.IsNullOrEmpty(path)) return null;
 		return AssetDatabase.LoadAssetAtPath(path, typeof(Object));
@@ -2122,5 +2171,15 @@ public static class NGUIEditorTools
 				colors[index] = Color.Lerp(c, original, original.a);
 			}
 		}
+	}
+
+	/// <summary>
+	/// Draw 18 pixel padding on the right-hand side. Used to align fields.
+	/// </summary>
+
+	static public void DrawPadding ()
+	{
+		if (!NGUISettings.minimalisticLook)
+			GUILayout.Space(18f);
 	}
 }

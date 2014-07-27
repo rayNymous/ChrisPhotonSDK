@@ -171,6 +171,24 @@ public class NGUISettings
 
 #region Convenience accessor properties
 
+	static public bool showTransformHandles
+	{
+		get { return GetBool("NGUI Transform Handles", false); }
+		set { SetBool("NGUI Transform Handles", value); }
+	}
+
+	static public bool minimalisticLook
+	{
+		get { return GetBool("NGUI Minimalistic", false); }
+		set { SetBool("NGUI Minimalistic", value); }
+	}
+
+	static public bool unifiedTransform
+	{
+		get { return GetBool("NGUI Unified", false); }
+		set { SetBool("NGUI Unified", value); }
+	}
+
 	static public Color color
 	{
 		get { return GetColor("NGUI Color", Color.white); }
@@ -235,13 +253,11 @@ public class NGUISettings
 		set { Set("NGUI Texture", value); }
 	}
 
-#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1 && !UNITY_4_2
 	static public Sprite sprite2D
 	{
 		get { return Get<Sprite>("NGUI Sprite2D", null); }
 		set { Set("NGUI Sprite2D", value); }
 	}
-#endif
 
 	static public string selectedSprite
 	{
@@ -336,6 +352,12 @@ public class NGUISettings
 		set { SetBool("NGUI Packing", value); }
 	}
 
+	static public bool trueColorAtlas
+	{
+		get { return GetBool("NGUI Truecolor", true); }
+		set { SetBool("NGUI Truecolor", value); }
+	}
+
 	static public bool forceSquareAtlas
 	{
 		get { return GetBool("NGUI Square", false); }
@@ -420,7 +442,6 @@ public class NGUISettings
 		return w;
 	}
 
-#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1 && !UNITY_4_2
 	/// <summary>
 	/// Convenience method -- add a UnityEngine.Sprite.
 	/// </summary>
@@ -435,7 +456,7 @@ public class NGUISettings
 		w.height = 100;
 		return w;
 	}
-#endif
+
 	/// <summary>
 	/// Convenience method -- add a sprite.
 	/// </summary>

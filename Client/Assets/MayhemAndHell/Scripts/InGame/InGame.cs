@@ -21,7 +21,7 @@ public class InGame : View
         // If click falls throught
         var newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        InGameController.Player.MoveLocallyTo(newPosition);
+        //InGameController.Player.MoveLocallyTo(newPosition);
     }
 
     void Start()

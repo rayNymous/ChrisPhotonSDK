@@ -27,7 +27,7 @@ namespace Assets.MayhemAndHell.Scripts.InGame.Handlers
                 Controller.ControllerView.LogDebug("Received empty ShowObjects object");
                 return;
             }
-            ViewsData data = PacketHandler.Deserialize<ViewsData>(rawData);
+            var data = Deserialize<ViewsData>(rawData);
 
             foreach (var view in data.Views)    
             {

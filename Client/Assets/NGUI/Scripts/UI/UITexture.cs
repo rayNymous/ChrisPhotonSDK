@@ -42,7 +42,6 @@ public class UITexture : UIBasicSprite
 			{
 				RemoveFromPanel();
 				mTexture = value;
-				if (value != null) mMat = null;
 				mPMA = -1;
 				MarkAsChanged();
 			}
@@ -275,6 +274,10 @@ public class UITexture : UIBasicSprite
 		inner.yMin *= h;
 		inner.yMax *= h;
 
+		int offset = verts.size;
 		Fill(verts, uvs, cols, outer, inner);
+
+		if (onPostFill != null)
+			onPostFill(this, offset, verts, uvs, cols);
 	}
 }

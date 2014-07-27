@@ -44,9 +44,9 @@ public partial class InGameController : ViewController
         EventSubCodeHandlers.Add((int)MessageSubCode.LeaveZone, new LeaveZoneHandler(this));
         EventSubCodeHandlers.Add((int)MessageSubCode.DeathNotification, new DeathNotificationHandler(this));
         EventSubCodeHandlers.Add((int)MessageSubCode.GlobalStorageData, new GlobalStorageInfoHandler(this));
+        EventSubCodeHandlers.Add((int)MessageSubCode.Chat, new ChatHandler(this));
 
-        //InitializeChat();
-        AddChatHandlers();
+        InitializeChat();
     }
 
     public void InstantiatePlayer(PlayerInitData initData)

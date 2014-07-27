@@ -39,6 +39,17 @@ public abstract class UIRect : MonoBehaviour
 		}
 
 		/// <summary>
+		/// Convenience function that sets the anchor's values.
+		/// </summary>
+
+		public void Set (Transform target, float relative, float absolute)
+		{
+			this.target = target;
+			this.relative = relative;
+			this.absolute = Mathf.FloorToInt(absolute + 0.5f);
+		}
+
+		/// <summary>
 		/// Set the anchor's value to the nearest of the 3 possible choices of (left, center, right) or (bottom, center, top).
 		/// </summary>
 
@@ -299,7 +310,7 @@ public abstract class UIRect : MonoBehaviour
 	}
 
 	// Temporary variable to avoid GC allocation
-	static Vector3[] mSides = new Vector3[4];
+	static protected Vector3[] mSides = new Vector3[4];
 
 	/// <summary>
 	/// Get the sides of the rectangle relative to the specified transform.
@@ -308,23 +319,18 @@ public abstract class UIRect : MonoBehaviour
 
 	public virtual Vector3[] GetSides (Transform relativeTo)
 	{
-		if (anchorCamera != null)
-		{
-			return anchorCamera.GetSides(relativeTo);
-		}
-		else
-		{
-			Vector3 pos = cachedTransform.position;
-			for (int i = 0; i < 4; ++i)
-				mSides[i] = pos;
+		if (anchorCamera != null) return mMyCam.GetSides(relativeTo);
+		
+		Vector3 pos = cachedTransform.position;
+		for (int i = 0; i < 4; ++i)
+			mSides[i] = pos;
 
-			if (relativeTo != null)
-			{
-				for (int i = 0; i < 4; ++i)
-					mSides[i] = relativeTo.InverseTransformPoint(mSides[i]);
-			}
-			return mSides;
+		if (relativeTo != null)
+		{
+			for (int i = 0; i < 4; ++i)
+				mSides[i] = relativeTo.InverseTransformPoint(mSides[i]);
 		}
+		return mSides;
 	}
 
 	/// <summary>
@@ -350,9 +356,11 @@ public abstract class UIRect : MonoBehaviour
 	protected virtual void OnEnable ()
 	{
 		mAnchorsCached = false;
+		mUpdateFrame = -1;
 		if (updateAnchors == AnchorUpdate.OnEnable)
 			mUpdateAnchors = true;
 		if (mStarted) OnInit();
+		mUpdateFrame = -1;
 #if UNITY_EDITOR
 		OnValidate();
 #endif
@@ -554,6 +562,12 @@ public abstract class UIRect : MonoBehaviour
 
 		mUpdateAnchors = true;
 	}
+
+	/// <summary>
+	/// Convenience method that resets and updates the anchors, all at once.
+	/// </summary>
+
+	public void ResetAndUpdateAnchors () { ResetAnchors(); UpdateAnchors(); }
 
 	/// <summary>
 	/// Set the rectangle manually.

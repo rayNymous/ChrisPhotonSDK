@@ -167,23 +167,22 @@ public class UIAtlasMaker : EditorWindow
 	{
 		Dictionary<string, int> spriteList = new Dictionary<string, int>();
 
-		if (NGUISettings.atlas != null)
-		{
-			BetterList<string> spriteNames = NGUISettings.atlas.GetListOfSprites();
-			foreach (string sp in spriteNames) spriteList.Add(sp, 0);
-		}
-
 		// If we have textures to work with, include them as well
 		if (textures.Count > 0)
 		{
 			List<string> texNames = new List<string>();
 			foreach (Texture tex in textures) texNames.Add(tex.name);
 			texNames.Sort();
+			foreach (string tex in texNames) spriteList.Add(tex, 2);
+		}
 
-			foreach (string tex in texNames)
+		if (NGUISettings.atlas != null)
+		{
+			BetterList<string> spriteNames = NGUISettings.atlas.GetListOfSprites();
+			foreach (string sp in spriteNames)
 			{
-				if (spriteList.ContainsKey(tex)) spriteList[tex] = 1;
-				else spriteList.Add(tex, 2);
+				if (spriteList.ContainsKey(sp)) spriteList[sp] = 1;
+				else spriteList.Add(sp, 0);
 			}
 		}
 		return spriteList;
@@ -712,8 +711,8 @@ public class UIAtlasMaker : EditorWindow
 		NGUIEditorTools.SetLabelWidth(80f);
 		GUILayout.Space(3f);
 
-		NGUIEditorTools.DrawHeader("Input");
-		NGUIEditorTools.BeginContents();
+		NGUIEditorTools.DrawHeader("Input", true);
+		NGUIEditorTools.BeginContents(false);
 
 		GUILayout.BeginHorizontal();
 		{
@@ -819,6 +818,11 @@ public class UIAtlasMaker : EditorWindow
 		GUILayout.Label("or custom packer", GUILayout.MinWidth(70f));
 		GUILayout.EndHorizontal();
 
+		GUILayout.BeginHorizontal();
+		NGUISettings.trueColorAtlas = EditorGUILayout.Toggle("Truecolor", NGUISettings.trueColorAtlas, GUILayout.Width(100f));
+		GUILayout.Label("force ARGB32 textures", GUILayout.MinWidth(70f));
+		GUILayout.EndHorizontal();
+
 		if (!NGUISettings.unityPacking)
 		{
 			GUILayout.BeginHorizontal();
@@ -866,13 +870,9 @@ public class UIAtlasMaker : EditorWindow
 
 			if (create)
 			{
-#if UNITY_3_5
-				string path = EditorUtility.SaveFilePanel("Save As",
-					NGUISettings.currentPath, "New Atlas.prefab", "prefab");
-#else
 				string path = EditorUtility.SaveFilePanelInProject("Save As",
 					"New Atlas.prefab", "prefab", "Save atlas as...", NGUISettings.currentPath);
-#endif
+
 				if (!string.IsNullOrEmpty(path))
 				{
 					NGUISettings.currentPath = System.IO.Path.GetDirectoryName(path);

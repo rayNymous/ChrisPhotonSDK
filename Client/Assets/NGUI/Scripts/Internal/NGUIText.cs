@@ -250,20 +250,37 @@ static public class NGUIText
 
 	static Color mInvisible = new Color(0f, 0f, 0f, 0f);
 	static BetterList<Color> mColors = new BetterList<Color>();
+	static float mAlpha = 1f;
 #if DYNAMIC_FONT
 	static CharacterInfo mTempChar;
 #endif
 
 	/// <summary>
+	/// Parse Aa syntax alpha encoded in the string.
+	/// </summary>
+
+	[System.Diagnostics.DebuggerHidden]
+	[System.Diagnostics.DebuggerStepThrough]
+	static public float ParseAlpha (string text, int index)
+	{
+		int a = (NGUIMath.HexToDecimal(text[index + 1]) << 4) | NGUIMath.HexToDecimal(text[index + 2]);
+		return Mathf.Clamp01(a / 255f);
+	}
+
+	/// <summary>
 	/// Parse a RrGgBb color encoded in the string.
 	/// </summary>
 
+	[System.Diagnostics.DebuggerHidden]
+	[System.Diagnostics.DebuggerStepThrough]
 	static public Color ParseColor (string text, int offset) { return ParseColor24(text, offset); }
 
 	/// <summary>
 	/// Parse a RrGgBb color encoded in the string.
 	/// </summary>
 
+	[System.Diagnostics.DebuggerHidden]
+	[System.Diagnostics.DebuggerStepThrough]
 	static public Color ParseColor24 (string text, int offset)
 	{
 		int r = (NGUIMath.HexToDecimal(text[offset])     << 4) | NGUIMath.HexToDecimal(text[offset + 1]);
@@ -277,6 +294,8 @@ static public class NGUIText
 	/// Parse a RrGgBbAa color encoded in the string.
 	/// </summary>
 
+	[System.Diagnostics.DebuggerHidden]
+	[System.Diagnostics.DebuggerStepThrough]
 	static public Color ParseColor32 (string text, int offset)
 	{
 		int r = (NGUIMath.HexToDecimal(text[offset]) << 4) | NGUIMath.HexToDecimal(text[offset + 1]);
@@ -291,12 +310,28 @@ static public class NGUIText
 	/// The reverse of ParseColor -- encodes a color in RrGgBb format.
 	/// </summary>
 
+	[System.Diagnostics.DebuggerHidden]
+	[System.Diagnostics.DebuggerStepThrough]
 	static public string EncodeColor (Color c) { return EncodeColor24(c); }
+
+	/// <summary>
+	/// The reverse of ParseAlpha -- encodes a color in Aa format.
+	/// </summary>
+
+	[System.Diagnostics.DebuggerHidden]
+	[System.Diagnostics.DebuggerStepThrough]
+	static public string EncodeAlpha (float a)
+	{
+		int i = Mathf.Clamp(Mathf.RoundToInt(a * 255f), 0, 255);
+		return NGUIMath.DecimalToHex8(i);
+	}
 
 	/// <summary>
 	/// The reverse of ParseColor24 -- encodes a color in RrGgBb format.
 	/// </summary>
 
+	[System.Diagnostics.DebuggerHidden]
+	[System.Diagnostics.DebuggerStepThrough]
 	static public string EncodeColor24 (Color c)
 	{
 		int i = 0xFFFFFF & (NGUIMath.ColorToInt(c) >> 8);
@@ -307,6 +342,8 @@ static public class NGUIText
 	/// The reverse of ParseColor32 -- encodes a color in RrGgBb format.
 	/// </summary>
 
+	[System.Diagnostics.DebuggerHidden]
+	[System.Diagnostics.DebuggerStepThrough]
 	static public string EncodeColor32 (Color c)
 	{
 		int i = NGUIMath.ColorToInt(c);
@@ -401,6 +438,12 @@ static public class NGUIText
 				strike = false;
 				index += 4;
 				return true;
+
+				default:
+				int a = (NGUIMath.HexToDecimal(text[index + 1]) << 4) | NGUIMath.HexToDecimal(text[index + 2]);
+				mAlpha = a / 255f;
+				index += 4;
+				return true;
 			}
 		}
 
@@ -455,6 +498,11 @@ static public class NGUIText
 			if (closingBracket != -1)
 			{
 				index = closingBracket + 1;
+				return true;
+			}
+			else
+			{
+				index = text.Length;
 				return true;
 			}
 		}
@@ -919,31 +967,21 @@ static public class NGUIText
 			remainingWidth -= glyphWidth;
 
 			// If this marks the end of a word, add it to the final string.
-			if (IsSpace(ch) && !eastern)
+			if (IsSpace(ch) && !eastern && start < offset)
 			{
-				bool sp = IsSpace(prev);
+				int end = offset - start + 1;
 
-				if (sp)
+				// Last word on the last line should not include an invisible character
+				if (lineCount == maxLineCount && remainingWidth <= 0f && offset < textLength)
 				{
-					sb.Append(' ');
-					start = offset;
+					char cho = text[offset];
+					if (cho < ' ' || IsSpace(cho)) --end;
 				}
-				else if (!sp && start < offset)
-				{
-					int end = offset - start + 1;
 
-					// Last word on the last line should not include an invisible character
-					if (lineCount == maxLineCount && remainingWidth <= 0f && offset < textLength)
-					{
-						char cho = text[offset];
-						if (cho < ' ' || IsSpace(cho)) --end;
-					}
-
-					sb.Append(text.Substring(start, end));
-					lineIsEmpty = false;
-					start = offset + 1;
-					prev = ch;
-				}
+				sb.Append(text.Substring(start, end));
+				lineIsEmpty = false;
+				start = offset + 1;
+				prev = ch;
 			}
 
 			// Doesn't fit?
@@ -1025,6 +1063,7 @@ static public class NGUIText
 
 		// Start with the white tint
 		mColors.Add(Color.white);
+		mAlpha = 1f;
 
 		int ch = 0, prev = 0;
 		float x = 0f, y = 0f, maxX = 0f;
@@ -1095,7 +1134,11 @@ static public class NGUIText
 			if (encoding && ParseSymbol(text, ref i, mColors, premultiply, ref subscriptMode, ref bold, ref italic, ref underline, ref strikethrough))
 			{
 				Color fc = tint * mColors[mColors.size - 1];
+				fc.a *= mAlpha;
 				uc = fc;
+
+				for (int b = 0, bmax = mColors.size - 2; b < bmax; ++b)
+					fc.a *= mColors[b].a;
 
 				if (gradient)
 				{
@@ -1200,9 +1243,6 @@ static public class NGUIText
 					}
 				}
 
-				float y0 = glyph.v0.y;
-				float y1 = glyph.v1.y;
-
 				v0x = glyph.v0.x + x;
 				v0y = glyph.v0.y - y;
 				v1x = glyph.v1.x + x;
@@ -1288,8 +1328,8 @@ static public class NGUIText
 					{
 						if (gradient)
 						{
-							float min = sizePD + y0 / fontScale;
-							float max = sizePD + y1 / fontScale;
+							float min = sizePD + glyph.v0.y / fontScale;
+							float max = sizePD + glyph.v1.y / fontScale;
 
 							min /= sizePD;
 							max /= sizePD;
@@ -1390,12 +1430,11 @@ static public class NGUIText
 						}
 
 						float cx = (dash.u0.x + dash.u1.x) * 0.5f;
-						float cy = (dash.u0.y + dash.u1.y) * 0.5f;
 
-						uvs.Add(new Vector2(cx, cy));
-						uvs.Add(new Vector2(cx, cy));
-						uvs.Add(new Vector2(cx, cy));
-						uvs.Add(new Vector2(cx, cy));
+						uvs.Add(new Vector2(cx, dash.u0.y));
+						uvs.Add(new Vector2(cx, dash.u1.y));
+						uvs.Add(new Vector2(cx, dash.u1.y));
+						uvs.Add(new Vector2(cx, dash.u0.y));
 					}
 
 					if (subscript && strikethrough)
@@ -1414,21 +1453,30 @@ static public class NGUIText
 					verts.Add(new Vector3(x, v1y));
 					verts.Add(new Vector3(x, v0y));
 
-					Color tint2 = uc;
-
-					if (strikethrough)
+					if (gradient)
 					{
-						tint2.r *= 0.5f;
-						tint2.g *= 0.5f;
-						tint2.b *= 0.5f;
-					}
-					tint2.a *= 0.75f;
-					Color32 uc2 = tint2;
+						float min = sizePD + dash.v0.y / fontScale;
+						float max = sizePD + dash.v1.y / fontScale;
 
-					cols.Add(uc2);
-					cols.Add(uc);
-					cols.Add(uc);
-					cols.Add(uc2);
+						min /= sizePD;
+						max /= sizePD;
+
+						s_c0 = Color.Lerp(gb, gt, min);
+						s_c1 = Color.Lerp(gb, gt, max);
+
+						for (int j = 0, jmax = (bold ? 4 : 1); j < jmax; ++j)
+						{
+							cols.Add(s_c0);
+							cols.Add(s_c1);
+							cols.Add(s_c1);
+							cols.Add(s_c0);
+						}
+					}
+					else
+					{
+						for (int j = 0, jmax = (bold ? 16 : 4); j < jmax; ++j)
+							cols.Add(uc);
+					}
 				}
 			}
 		}

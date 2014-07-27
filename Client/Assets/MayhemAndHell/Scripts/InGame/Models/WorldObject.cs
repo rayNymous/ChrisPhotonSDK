@@ -19,11 +19,15 @@ public class WorldObject : MonoBehaviour
     protected Vector3 CurrentPosition;
     private InGameController _gameController;
 
-    public GameObject TargetPosition;
+    public Transform BottomPosition;
+    public Transform TopPosition;
+
     public Hint Hint;
 
     void Awake()
     {
+        BottomPosition = transform.FindChild("BottomPosition");
+        TopPosition = transform.FindChild("TopPosition");
         OnAwake();
     }
 

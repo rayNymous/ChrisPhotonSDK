@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
@@ -16,14 +17,9 @@ public partial class InGameController
         ChatText = "";
     }
 
-    public void AddChatHandlers()
-    {
-        EventHandlers.Add((byte)ClientEventCode.Chat, new ChatHandler(this));
-    }
-
     public void AddChatText(string chatInput)
     {
-        InGameView.Gui.Chat.OnMessageReceived(chatInput);
+        InGameView.Gui.Chat.AddMessage(chatInput);
     }
 
     public void ParseChat(string chatInput)
@@ -31,27 +27,28 @@ public partial class InGameController
         if (chatInput.StartsWith("/"))
         {
             // Commands like group invite, whisper and etc.
+            SendChatText(chatInput);
         }
         else
         {
-            ChatItem item = new ChatItem() {Type = ChatType.General, WhisperPlayer = null, Text = chatInput};
-            SendChatItem(item);
+            SendChatText(chatInput);
         }
     }
 
-    private void SendChatItem(ChatItem item)
+    private void SendChatText(string text)
     {
-        XmlSerializer chatSerializer = new XmlSerializer(typeof(ChatItem));
-        StringWriter outStream = new StringWriter();
-        chatSerializer.Serialize(outStream, item);
+        if (String.IsNullOrEmpty(text))
+        {
+            return;
+        }
 
-        Dictionary<byte, object> param = new Dictionary<byte, object>()
+        var param = new Dictionary<byte, object>()
         {
             {(byte) ClientParameterCode.SubOperationCode, MessageSubCode.Chat},
-            {(byte) ClientParameterCode.Object, outStream.ToString()}
+            {(byte) ClientParameterCode.Object, text}
         };
 
-        OperationRequest request = new OperationRequest()
+        var request = new OperationRequest()
         {
             OperationCode = (byte) ClientOperationCode.Chat,
             Parameters = param

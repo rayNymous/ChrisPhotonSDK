@@ -137,6 +137,7 @@
     <Compile Include="GameServer.cs" />
     <Compile Include="Handlers\ActionRequestHandler.cs" />
     <Compile Include="Handlers\CharacterLoadingHandler.cs" />
+    <Compile Include="Handlers\ChatHandler.cs" />
     <Compile Include="Handlers\CoinsTransferHandler.cs" />
     <Compile Include="Handlers\DialogActionHandler.cs" />
     <Compile Include="Handlers\EquipItemHandler.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Model\Position.cs" />
     <Compile Include="Model\ServerEvents\AttackEvent.cs" />
     <Compile Include="Model\ServerEvents\CharacterDeathEvent.cs" />
+    <Compile Include="Model\ServerEvents\ChatMessagePacket.cs" />
     <Compile Include="Model\ServerEvents\DeathNotification.cs" />
     <Compile Include="Model\ServerEvents\GlobalStorageInfo.cs" />
     <Compile Include="Model\ServerEvents\LeaveZone.cs" />

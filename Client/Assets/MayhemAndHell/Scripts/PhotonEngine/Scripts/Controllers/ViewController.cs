@@ -107,6 +107,11 @@ public class ViewController : IViewController
 
     public void OnUnexpectedEvent(EventData eventData)
     {
+        var parameters = eventData.Parameters;
+
+        var eventSubOperationCode = Convert.ToInt32(parameters[(byte) ClientParameterCode.SubOperationCode]);
+
+        Debug.Log("VA " + eventSubOperationCode + " " + (MessageSubCode)eventSubOperationCode);
         controlledView.LogError(string.Format("Unexpected Event {0} ", eventData.Code));
     }
 

@@ -3,8 +3,6 @@
 // Copyright © 2011-2014 Tasharen Entertainment
 //----------------------------------------------
 
-#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1 && !UNITY_4_2
-
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
@@ -85,10 +83,6 @@ public class UIBasicSpriteEditor : UIWidgetInspector
 		//    NGUIEditorTools.RegisterUndo("Draw Region", mWidget);
 		//    mWidget.drawRegion = draw;
 		//}
-
-
-		GUILayout.Space(4f);
 		base.DrawCustomProperties();
 	}
 }
-#endif

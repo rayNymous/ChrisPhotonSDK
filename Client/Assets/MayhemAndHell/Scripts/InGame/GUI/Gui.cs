@@ -21,6 +21,7 @@ public class Gui : MonoBehaviour
     public Equipment Equipment;
     public Chat Chat;
     public DeathWindow DeathWindow;
+    public SpeechBubbleManager SpeechBubbleManager;
 
     public Guid TargetId { get; set; }
 

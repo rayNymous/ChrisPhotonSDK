@@ -105,11 +105,11 @@ public class UIFontMaker : EditorWindow
 		GUILayout.Space(3f);
 
 		NGUIEditorTools.DrawHeader("Input", true);
-		NGUIEditorTools.BeginContents();
+		NGUIEditorTools.BeginContents(false);
 
 		GUILayout.BeginHorizontal();
 		mType = (FontType)EditorGUILayout.EnumPopup("Type", mType, GUILayout.MinWidth(200f));
-		GUILayout.Space(18f);
+		NGUIEditorTools.DrawPadding();
 		GUILayout.EndHorizontal();
 		Create create = Create.None;
 
@@ -123,7 +123,7 @@ public class UIFontMaker : EditorWindow
 			EditorGUI.BeginDisabledGroup(NGUISettings.fontData == null || NGUISettings.fontTexture == null);
 			{
 				NGUIEditorTools.DrawHeader("Output", true);
-				NGUIEditorTools.BeginContents();
+				NGUIEditorTools.BeginContents(false);
 				ComponentSelector.Draw<UIAtlas>(NGUISettings.atlas, OnSelectAtlas, false);
 				NGUIEditorTools.EndContents();
 			}
@@ -171,7 +171,7 @@ public class UIFontMaker : EditorWindow
 				if (mType == FontType.Dynamic)
 				{
 					NGUISettings.fontStyle = (FontStyle)EditorGUILayout.EnumPopup(NGUISettings.fontStyle);
-					GUILayout.Space(18f);
+					NGUIEditorTools.DrawPadding();
 				}
 			}
 			GUILayout.EndHorizontal();
@@ -255,7 +255,7 @@ public class UIFontMaker : EditorWindow
 							}
 							else if (cm == CharacterMap.Numeric)
 							{
-								chars = "01234567890";
+								chars = "0123456789";
 							}
 							else if (cm == CharacterMap.Latin)
 							{
@@ -341,7 +341,7 @@ public class UIFontMaker : EditorWindow
 				EditorGUI.BeginDisabledGroup(ttf == null || isBuiltIn || !FreeType.isPresent);
 				{
 					NGUIEditorTools.DrawHeader("Output", true);
-					NGUIEditorTools.BeginContents();
+					NGUIEditorTools.BeginContents(false);
 					ComponentSelector.Draw<UIAtlas>(NGUISettings.atlas, OnSelectAtlas, false);
 					NGUIEditorTools.EndContents();
 

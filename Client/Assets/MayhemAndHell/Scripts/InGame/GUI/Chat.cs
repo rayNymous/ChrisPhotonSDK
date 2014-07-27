@@ -31,7 +31,7 @@ public class Chat : MonoBehaviour
         ToggleButton.color = RegularColor;
     }
 
-    public void OnMessageReceived(String message)
+    public void AddMessage(String message)
     {
         Text.text += "\n"+message;
         if (!NGUITools.GetActive(ChatWindow))
